@@ -23,23 +23,23 @@
 #     print("O",end='')
 
 # 3.
-# n=int(input("Bitte geben sie hier ihren gewünschten Wert an: "))
-# for i in range(0, n + 1, 1):
-#     for j in range(i + 1, n + 1, 1):
-#         print(j*2-1, end=' ')
-#     print()
-# for i in range(n + 1,0,  -1):
-#     for j in range(i , n + 1, 1):
-#         print(j*2-1, end=' ')
-#     print()
-# for i in range(0, n + 1, 1):
-#     for j in range(n ,i ,  -1):
-#         print(j*2-1, end=' ')
-#     print()
-# for i in range(n + 1,0,  -1):
-#     for j in range(i , n + 1, 1):
-#         print(j*2-1, end=' ')
-#     print()
+n=int(input("Bitte geben sie hier ihren gewünschten Wert an: "))
+for i in range(0, n + 1, 1):
+    for j in range(i + 1, n + 1, 1):
+        print(j*2-1, end=' ')
+    print()
+for i in range(n + 1,0,  -1):
+    for j in range(i , n + 1, 1):
+        print(j*2-1, end=' ')
+    print()
+for i in range(0, n + 1, 1):
+    for j in range(n ,i ,  -1):
+        print(j*2-1, end=' ')
+    print()
+for i in range(n + 1,0,  -1):
+    for j in range(i , n + 1, 1):
+        print(j*2-1, end=' ')
+    print()
 
 # 4.
 # import pygame
