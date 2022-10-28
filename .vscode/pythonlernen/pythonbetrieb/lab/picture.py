@@ -25,5 +25,6 @@ while running:
     screen.blit(text1, [32, 450])
     screen.blit(text2, [55, 510])
     pygame.display.flip()
+    
 time.tick(20)
 pygame.quit()
