@@ -20,7 +20,7 @@ while running:
         if event.type == pygame.K_ESCAPE:
             running=False
 # Hintergrund mit Farbe füllen
-    screen.fill((226, 0, 116))
+    screen.fill([226, 0, 116])
 # updated das Fenster mit dem was man gezeichnet hat
     pygame.display.flip()
 # auf 20 fps beschränkt
