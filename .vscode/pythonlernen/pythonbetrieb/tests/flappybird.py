@@ -16,8 +16,7 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    for event in pygame.event.get():
-        if event.type == pygame.K_ESCAPE:
+        elif event.type == pygame.K_ESCAPE:
             running=False
 # Hintergrund mit Farbe füllen
     screen.fill([226, 0, 116])

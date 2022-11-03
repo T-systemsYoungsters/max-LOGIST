@@ -36,5 +36,5 @@ while not done:
     rectx=rectx+rectchangex
     recty=recty+rectchangey
     pygame.display.flip()
-    clock.tick(20)
+    clock.tick(10)
 pygame.quit()
