@@ -19,7 +19,7 @@ def keycloud(screen,x,y):
     pygame.draw.circle(screen, (226,0,116), (40+x, -20+y), 25)
     pygame.draw.circle(screen, (226,0,116), (70+x, -10+y), 25)
 pygame.init()
-size = [1000, 1000]
+size = [1000, 600]
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("My Game")
 done = False
