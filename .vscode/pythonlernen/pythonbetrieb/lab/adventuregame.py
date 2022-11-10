@@ -18,7 +18,7 @@ current_room=0
 while done == False:
     print()
     print(room_list[current_room][0])
-    choice=input("Do you want to go to the north(n), the east(e), the south(s) or the west(w)? ")
+    choice=input("Do you want to go to the north(n), the east(e), the south(s) or the west(w)? (Q=Quit)")
     if choice=="n" :
         next_room=room_list[current_room][1]
         if next_room==None:
@@ -43,5 +43,7 @@ while done == False:
             print("You can't go that way.")
         else:
             current_room=next_room
+    elif choice=="Q" or choice=="q":
+        done=True
     else:
         print("Wrong input.")

@@ -30,20 +30,20 @@ while done==False:
         print()
     elif choice=="d" or choice=="D":
         tired=0
-        natives=natives+random.randrange(7,14)
+        natives=natives+random.randrange(7,15)
         print("Your camel is happy but the natives are coming closer.")
     elif choice=="c" or choice=="C":
         miles=miles+random.randrange(10,21)
         print("You traveled",miles,"miles.")
         thirst=thirst+1
         tired=tired+random.randrange(1,3)
-        natives=natives+random.randrange(7,14)
+        natives=natives+random.randrange(7,15)
     elif choice=="b" or choice=="B":
         miles=miles+random.randrange(5,13)
         print("You traveled",miles,"miles.")
         tired=tired+1
         thirst=thirst+1
-        natives=natives+random.randrange(7,14)
+        natives=natives+random.randrange(7,15)
     elif choice=="a" or choice=="A":
         if drinks>0:
             drinks=drinks-1
@@ -78,7 +78,7 @@ while done==False:
         dead=1
     if natives>=miles:
         print()
-        print("You got cought by the natives.")
+        print("You got caught by the natives.")
         print()
         done=True
         dead=1
@@ -91,7 +91,7 @@ while done==False:
         print("You won the game!")
         print()
         done=True
-    if random.randrange(0,20)==0 and dead==0 and choice!="e" and choice!="E" and choice!="q" and choice!="Q":
+    if random.randrange(0,20)==0 and dead==0 and choice!="e" and choice!="E" and choice!="q" and choice!="Q" and done!=True:
         print()
         print("You have found an oasis")
         print()
