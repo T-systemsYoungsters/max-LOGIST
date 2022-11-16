@@ -34,17 +34,17 @@
 #    einzahlung = einzahlung * zinssatz
 #    print("Ihr Kontostand nach",i+1, "Jahren beträgt:",einzahlung)
 # #3.Programmieraufgabe
-# print("Dieses Programm gibt Ihnen den Durchschnitt und das Maximum ihrer Zahlen aus.")
-# zahl1=int(input("Bitte geben sie Ihre erste Zahl an: "))
-# zahl2=int(input("Bitte geben sie Ihre zweite Zahl an: "))
-# zahl3=int(input("Bitte geben sie Ihre dritte Zahl an: "))
-# zahl4=int(input("Bitte geben sie Ihre vierte Zahl an: "))
-# zahl5=int(input("Bitte geben sie Ihre fünfte Zahl an: "))
-# if zahl1>=0 and zahl2>=0 and zahl3>=0 and zahl4>=0 and zahl5>=0:
-#    durchschnitt=(zahl1+zahl2+zahl3+zahl4+zahl5)/5
-#    print("Der Durchschnitt Ihrer Zahlen beträgt:",durchschnitt)
-#    zahlen=[zahl1, zahl2, zahl3, zahl4, zahl5]
-#    maximum=max(zahlen)
-#    print("Die größte Zahl, die Sie eingegeben haben ist:",maximum)
-# else:
-#    print("Sie haben eine negative Zahl eingegeben.")
+print("Dieses Programm gibt Ihnen den Durchschnitt und das Maximum ihrer Zahlen aus.")
+zahl1=int(input("Bitte geben sie Ihre erste Zahl an: "))
+zahl2=int(input("Bitte geben sie Ihre zweite Zahl an: "))
+zahl3=int(input("Bitte geben sie Ihre dritte Zahl an: "))
+zahl4=int(input("Bitte geben sie Ihre vierte Zahl an: "))
+zahl5=int(input("Bitte geben sie Ihre fünfte Zahl an: "))
+if zahl1>=0 and zahl2>=0 and zahl3>=0 and zahl4>=0 and zahl5>=0:
+   durchschnitt=(zahl1+zahl2+zahl3+zahl4+zahl5)/5
+   print("Der Durchschnitt Ihrer Zahlen beträgt:",durchschnitt)
+   zahlen=[zahl1, zahl2, zahl3, zahl4, zahl5]
+   maximum=max(zahlen)
+   print("Die größte Zahl, die Sie eingegeben haben ist:",maximum)
+else:
+   print("Sie haben eine negative Zahl eingegeben.")
