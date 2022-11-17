@@ -8,6 +8,11 @@ a=1000
 b=0
 c=0
 score_player=0
+def player(filename):
+    image = pygame.image.load(filename)
+    rect = image.get_rect()
+    change_x = 0
+    change_y = 0
 def show_score(scoreofplayer):
     font = pygame.font.Font('freesansbold.ttf', 32)
     score = font.render("Score: " + str(scoreofplayer), True, (255,255,255))
@@ -15,10 +20,11 @@ def show_score(scoreofplayer):
 screen = pygame.display.set_mode([1000, 750])
 pygame.display.set_caption("My Game")
 time=pygame.time.Clock()
-flappybird=pygame.image.load((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\tests\flappybird\flappybird.png")).convert()
+# flappybird=pygame.image.load((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\tests\flappybird\flappybird.png")).convert()
 jump=pygame.mixer.Sound((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\tests\flappybird\jump.mp3"))
 point=pygame.mixer.Sound((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\tests\flappybird\point.mp3")) 
-flappybird.set_colorkey((255,255,255))
+# flappybird.set_colorkey((255,255,255))
+bird = player((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\tests\flappybird\flappybird.png"))
 done = False
 while done==False:
     for event in pygame.event.get():
@@ -58,18 +64,20 @@ while done==False:
     pipe2=pygame.draw.rect(screen, (0, 200, 0), [pipex1, pipey1+300, 50, 600])
     pipe3=pygame.draw.rect(screen, (0, 200, 0), [pipex2, 0, 50, pipey2])
     pipe4=pygame.draw.rect(screen, (0, 200, 0), [pipex2, pipey2+300, 50, 600])
-    bird=pygame.draw.rect(screen, (200, 0, 0), [100, birdy, 50, 50])
-    collide1 = bird.colliderect(pipe1)
-    collide2 = bird.colliderect(pipe2)
-    collide3 = bird.colliderect(pipe3)
-    collide4 = bird.colliderect(pipe4)
+    bird=pygame.image.load((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\tests\flappybird\flappybird.png"))
+    rect = bird.get_rect()
+    rect.x =birdy
+    rect.y =birdy
+    collide1 = rect.colliderect(pipe1)
+    collide2 = rect.colliderect(pipe2)
+    collide3 = rect.colliderect(pipe3)
+    collide4 = rect.colliderect(pipe4)
     if collide1==1 or collide2==1 or collide3==1 or collide4==1:
         done=True
     if 99.7<=pipex1<=100 or 99.7<=pipex2<=100:
         score_player+=1
         point.play()
     show_score(score_player)
-    screen.blit(flappybird,(20,20))
     pygame.display.flip()
 time.tick(20)
 print("Ihr Score war:",score_player)
