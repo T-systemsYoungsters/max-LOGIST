@@ -109,7 +109,7 @@ while done==False:
             file = open((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\tests\flappybird\highscore.txt"),'w')
             file.write(g)
         file.close()
-        text3 = font.render("The Highscore is: " + highscore_list[-1], True, (255,255,255))
+        text3 = font.render("The previous Highscore is: " + highscore_list[-1], True, (255,255,255))
         screen.blit(text, [250, 330])
         screen.blit(text1, [245, 370])
         screen.blit(text2, [250, 410])

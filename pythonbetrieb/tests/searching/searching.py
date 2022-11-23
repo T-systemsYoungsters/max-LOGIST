@@ -40,3 +40,75 @@
 #     print( "The name is at position", middle_pos)
 # else:
 #     print( "The name was not in the list." )
+# 
+# def binary_search(list, key):
+#     lower_bound = 0
+#     upper_bound = len(list)-1
+#     found = False
+#     while lower_bound <= upper_bound and not found:
+#         r = (lower_bound + upper_bound) // 2
+#         if list[r] < key:
+#             lower_bound = r + 1
+#         elif list[r] > key:
+#             upper_bound = r - 1
+#         else:
+#             found = True
+#     if found:
+#         return r
+#     else:
+#         return -1
+# my_list = [0, 3, 5, 12, 18, 50, 70, 78]
+# r = binary_search(my_list, 3)
+# if r == 1:
+#     print("Test A passed")
+# else:
+#     print("Test A failed. Expected 1 and got", r)
+# r = binary_search(my_list, 5)
+# if r == 2:
+#     print("Test B passed")
+# else:
+#     print("Test B failed. Expected 2 and got", r)
+# r = binary_search(my_list, 10)
+# if r == -1:
+#     print("Test C passed")
+# else:
+#     print("Test C failed. Expected -1 and got", r)
+    
+# def linear_search(list, key):
+#     i = 0
+#     while i < len(list) and list[i] != key:
+#         i += 1
+#     if i < len(list):
+#         return i
+#     else:
+#         return -1
+# my_list = [4, 3, 2, 1, 5, 7, 6]
+# r = linear_search(my_list, 3)
+# if r == 1:
+#     print("Test A passed")
+# else:
+#     print("Test A failed. Expected 1 and got", r)
+# r = linear_search(my_list, 2)
+# if r == 2:
+#     print("Test B passed")
+# else:
+#     print("Test B failed. Expected 2 and got", r)
+# r = linear_search(my_list, 10)
+# if r == -1:
+#     print("Test C passed")
+# else:
+#     print("Test C failed. Expected -1 and got", r)
+
+# def detect_positive(list):
+#     i = 0
+#     while i < len(list) and list[i] < 0:
+#         i += 1
+#     if i < len(list):
+#         return True
+#     else:
+#         return False
+# test_list=[-2,-5,-3,3]
+# if detect_positive(test_list):
+#     print("This list contains at least 1 positiv number.")
+# else:
+#     print("This list does not contain a positiv number.")
