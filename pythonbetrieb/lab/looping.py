@@ -27,18 +27,18 @@ n=int(input("Bitte geben sie hier ihren gewünschten Wert an: "))
 for i in range(n):
     print()
     for j in range(i + 1, n + 1):
-        print(j*2-1, end=' ')
+        print("{:2}".format(j*2-1), end=' ')
     for j in range(i*2):
-        print (" ",end=" ")
+        print (" ",end="  ")
     for j in range(n,i, -1):
-        print(j*2-1, end=' ')
+        print("{:2}".format(j*2-1), end=' ')
 for i in range(n + 1,0,  -1):
     for j in range(i , n + 1):
-        print(j*2-1, end=' ')
+        print("{:2}".format(j*2-1), end=' ')
     for j in range(-2+i*2):
-        print (" ",end=" ")
+        print (" ",end="  ")
     for j in range(n , i -1,-1):
-        print(j*2-1, end=' ')
+        print("{:2}".format(j*2-1), end=' ')
     print()
 # 4.
 # import pygame
