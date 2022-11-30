@@ -5,13 +5,13 @@ RED   = (255,   0,   0)
 GREEN = (  0, 255,   0)
 BLUE  = (  0,   0, 255)
 def modifyGrid(grid, row, column):
-    if (row - 1) > 0:
+    if (row ) > 0:
         grid[row - 1][column] = 1
-    if (row+1)<9:
+    if (row)<9:
         grid[row + 1][column] = 1
-    if (column-1)>0:
+    if (column)>0:
         grid[row][column-1] = 1
-    if (column+1)<9:
+    if (column)<9:
         grid[row][column+1] = 1
 pygame.init()
 screen = pygame.display.set_mode([255, 255])
