@@ -4,7 +4,7 @@ pygame.init()
 font = pygame.font.Font('freesansbold.ttf', 50)
 font1 = pygame.font.Font('freesansbold.ttf', 20)
 clock = pygame.time.Clock()
-fps=1000
+fps=100
 def update_fps():
 	fps = str(int(clock.get_fps()))
 	fps_text = font1.render(fps, 1, (255,0,0))
@@ -121,5 +121,5 @@ while done==False:
         screen.blit(text3, [width/2-250, hight/2+50])
     screen.blit(update_fps(), (width-50,10))
     pygame.display.flip()
-    #clock.tick(fps)
+    clock.tick(fps)
 pygame.quit()
