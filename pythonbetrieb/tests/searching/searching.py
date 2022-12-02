@@ -1,4 +1,7 @@
-# file = open((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\tests\searching\villains.txt"))
+import os
+path = os.getcwd()
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# file = open("villains.txt")
 # for line in file:
 #     line = line.strip() # -> Leerzeichen entfernen
 #     print(line)

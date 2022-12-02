@@ -1,6 +1,11 @@
 # imports
 import random
 import pygame
+import os
+
+# find path
+path = os.getcwd()
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # initialize
 pygame.init()
@@ -116,22 +121,22 @@ def showscore(scoreofplayer):
 def updatehighscore():
     global text3
     highscore_list=[0]
-    file = open((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\flappybird\highscore.txt"))
+    file = open("highscore.txt")
     for line in file:
         line = line.strip()
         highscore_list.append(line)
     g = int(score_player)
     file.close()
     if g > int(highscore_list[-1]):
-        file = open((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\flappybird\highscore.txt"),'w')
+        file = open("highscore.txt",'w')
         file.write(str(g))
     file.close()
     text3 = font.render("The Highscore is: " + highscore_list[-1], True, WHITE)   
 
 # files
-jump=pygame.mixer.Sound((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\flappybird\jump.mp3"))
-point=pygame.mixer.Sound((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\flappybird\point.mp3")) 
-bird_image=pygame.image.load((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\flappybird\flappybird.png"))
+jump=pygame.mixer.Sound("jump.mp3")
+point=pygame.mixer.Sound("point.mp3") 
+bird_image=pygame.image.load("flappybird.png")
 bird_image.set_colorkey(WHITE)
 bird = bird_image.get_rect()
 
@@ -178,4 +183,4 @@ while not done:
     clock.tick(fps)
     updatefps()
     pygame.display.flip()
-pygame.quit()   
+pygame.quit()

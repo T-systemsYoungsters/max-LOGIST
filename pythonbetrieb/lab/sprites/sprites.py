@@ -1,5 +1,8 @@
 import pygame
 import random
+import os
+path = os.getcwd()
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 class Player(pygame.sprite.Sprite):
     def __init__(self, filename):
         super().__init__()
@@ -43,25 +46,25 @@ good_block_list = pygame.sprite.Group()
 block_list = pygame.sprite.Group()
 all_sprites_list = pygame.sprite.Group()
 for i in range(50):
-    block1 = Block((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\lab\sprites\dollar.jpg"))
+    block1 = Block("dollar.jpg")
     block1.rect.x = random.randrange(screen_width)
     block1.rect.y = random.randrange(screen_height)
     good_block_list.add(block1)
     all_sprites_list.add(block1)
 for i in range(50):
-    block = Block((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\lab\sprites\shit.jpg"))
+    block = Block("shit.jpg")
     block.rect.x = random.randrange(screen_width)
     block.rect.y = random.randrange(screen_height)
     block_list.add(block)
     all_sprites_list.add(block)
-player = Player((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\lab\sprites\ufo.png"))
+player = Player("ufo.png")
 all_sprites_list.add(player)
 done = False
 clock = pygame.time.Clock()
 score = 0
-bad = pygame.mixer.Sound((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\lab\sprites\bad.wav"))
-bump = pygame.mixer.Sound((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\lab\sprites\bump.wav"))
-good = pygame.mixer.Sound((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\lab\sprites\good.wav"))
+bad = pygame.mixer.Sound("bad.wav")
+bump = pygame.mixer.Sound("bump.wav")
+good = pygame.mixer.Sound("good.wav")
 while not done:
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT: 
@@ -99,4 +102,3 @@ while not done:
     pygame.display.flip()
     clock.tick(60)
 pygame.quit()
-#

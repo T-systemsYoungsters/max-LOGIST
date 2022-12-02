@@ -1,4 +1,7 @@
 import pygame
+import os
+path = os.getcwd()
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 pygame.init()
 screen = pygame.display.set_mode([1130, 647])
 pygame.display.set_caption("My Game")
@@ -16,9 +19,9 @@ def cloud(screen,x,y):
     pygame.draw.circle(screen, (226,0,116), (10+x, -10+y), 25)
     pygame.draw.circle(screen, (226,0,116), (40+x, -20+y), 25)
     pygame.draw.circle(screen, (226,0,116), (70+x, -10+y), 25)
-background_image = pygame.image.load((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\lab\graphicsandusercontrol\background.jpg")).convert()
+background_image = pygame.image.load("background.jpg").convert()
 pygame.mouse.set_visible(0)
-click_sound = pygame.mixer.Sound((r"C:\Users\A200162668\Desktop\Python\pythonbetrieb\lab\graphicsandusercontrol\laser5.ogg"))
+click_sound = pygame.mixer.Sound("laser5.ogg")
 while done==False:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
