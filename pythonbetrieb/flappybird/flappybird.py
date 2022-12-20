@@ -15,8 +15,8 @@ RED=(255,0,0)
 GREEN=(0, 255, 0)
 
 # variables
-width=1900
-hight=1000
+width=1500  #Laptop:1500/Monitor:1900
+hight=800   #Laptop:800/Monitor:1000
 fps=240
 jumpduration=1000
 pipe1reset=0
@@ -369,17 +369,17 @@ def updatehighscore():
         rect.topleft = (width/2+100,hight/2-100)
         cursor = pygame.Rect(rect.topright, (3, rect.height))
         screen.blit(img, (width/2+100,hight/2-100))       
-        screen.blit(defaultfont.render(("Press ENTER to save your name."), True,BLACK), [width/2-425, hight/2])
         rect.size=img.get_size()
         cursor.topleft = rect.topright
         if time.time() % 1 > 0.5 and enter ==0:
             pygame.draw.rect(screen, RED, cursor)
+            screen.blit(defaultfont.render(("Press ENTER to save your name."), True,BLACK), [width/2-425, hight/2])
     screen.blit(defaultfont.render("The Highscore is: " + highscore_list[-1], True, BLACK), [width/2-280, hight/2-150])
     
 def movingbackground():
-    global background1x,background2x
-    background1x-=0.2
-    background2x-=0.2
+    global background1x,background2x,fpsmultiplier
+    background1x-=0.8/fpsmultiplier
+    background2x-=0.8/fpsmultiplier
     if background1x<=-width:
         background1x=width
     if background2x<=-width:
@@ -389,7 +389,8 @@ def movingbackground():
 
 # main programm loop
 while not done:
-
+    fpsmultiplier=fps/60
+    
 # userinputs 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -467,7 +468,7 @@ while not done:
         infoscreen()
 
 # update screen
-    fpsmultiplier=fps/60
+    
     clock.tick(fps)
     screen.blit(fpssize.render(str(int(clock.get_fps())), 1, RED), (width-50,10))
     pygame.display.flip()
