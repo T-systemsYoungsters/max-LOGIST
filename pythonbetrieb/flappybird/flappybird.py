@@ -10,14 +10,15 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # colors
 BLACK=(0,0,0)
-WHITE=(255, 255, 255)
+WHITE=(255,255,255)
 RED=(255,0,0)
-GREEN=(0, 255, 0)
+GREEN=(0,255,0)
 
 # variables
-width=1500  #Laptop:1500/Monitor:1900
-hight=800   #Laptop:800/Monitor:1000
+width=1900      #Laptop:1500/Monitor:1900
+hight=1000      #Laptop:800/Monitor:1000
 fps=240
+difficulty=250
 jumpduration=1000
 pipe1reset=0
 pipe2reset=0
@@ -45,63 +46,65 @@ clickedy=0
 newhighscore=0
 enter=0
 text=""
-done = False
+done=False
 
 # screen
 pygame.init()
-clock = pygame.time.Clock()
-screen = pygame.display.set_mode([width, hight])
+clock=pygame.time.Clock()
+screen=pygame.display.set_mode([width,hight])
 pygame.display.set_caption("Flappybird")
 
 # fonts
-defaultfont = pygame.font.Font('freesansbold.ttf', 50)
-fpssize = pygame.font.Font('freesansbold.ttf', 20)
-headline = pygame.font.Font('freesansbold.ttf', 100)
+defaultfont=pygame.font.Font('freesansbold.ttf',50)
+fpssize=pygame.font.Font('freesansbold.ttf',20)
+headline=pygame.font.Font('freesansbold.ttf',100)
 
 # files
 jump=pygame.mixer.Sound("jump.mp3")
-point=pygame.mixer.Sound("point.mp3") 
+point=pygame.mixer.Sound("point.mp3")
 die=pygame.mixer.Sound("die.mp3")
 fivepoint=pygame.mixer.Sound("fivepoints.wav")
 backgroundmusic=pygame.mixer.music.load("song.mp3")
 backgroundmusic=pygame.mixer.music.play(-1,-10.0)
 bird_image=pygame.image.load("flappybird.png")
 bird_image.set_colorkey(WHITE)
-bird = bird_image.get_rect()
-customizedbird= pygame.transform.scale(bird_image, (400,282))
+bird=bird_image.get_rect()
+customizedbird=pygame.transform.scale(bird_image,(400,282))
 bird_image1=pygame.image.load("flappybird1.png")
 bird_image1.set_colorkey(WHITE)
-customizedbird1= pygame.transform.scale(bird_image1, (400,282))
+customizedbird1=pygame.transform.scale(bird_image1,(400,282))
 bird_image2=pygame.image.load("flappybird2.png")
 bird_image2.set_colorkey(WHITE)
-customizedbird2= pygame.transform.scale(bird_image2, (400,282))
+customizedbird2= pygame.transform.scale(bird_image2,(400,282))
 bird_image3=pygame.image.load("flappybird3.png")
 bird_image3.set_colorkey(WHITE)
-customizedbird3= pygame.transform.scale(bird_image3, (400,282))
+customizedbird3=pygame.transform.scale(bird_image3,(400,282))
 pipeb_image=pygame.image.load("pipeb.png")
 pipeb_image.set_colorkey(WHITE)
-pipe1b= pipeb_image.get_rect()
-pipe2b= pipeb_image.get_rect()
+pipe1b=pipeb_image.get_rect()
+pipe2b=pipeb_image.get_rect()
 pipet_image=pygame.image.load("pipet.png")
 pipet_image.set_colorkey(WHITE)
-pipe1t= pipet_image.get_rect()
-pipe2t= pipet_image.get_rect()
+pipe1t=pipet_image.get_rect()
+pipe2t=pipet_image.get_rect()
 five=pygame.image.load("five.jpg")
 settings=pygame.image.load("settings.png")
 sound=pygame.image.load("sound.png")
 sound.set_colorkey(WHITE)
 info=pygame.image.load("info.png")
+playbutton=pygame.image.load("play.png")
 sky=pygame.image.load("sky.png")
-customizedsky= pygame.transform.scale(sky, (width,hight+5))
+customizedsky=pygame.transform.scale(sky,(width,hight+5))
 
 # definitions
 def prescreen():
-    global clickedx,clickedy,status, skin
-    screen.blit(headline.render("Flappybird", True, BLACK),  [width/2-250, hight/2-200])
-    screen.blit(defaultfont.render("Press ENTER to start", True, BLACK), [width/2-250, hight/2+225])
-    screen.blit(defaultfont.render("or press H to view the highscores.", True, BLACK), [width/2-390, hight/2+275])
+    global clickedx,clickedy,status, skin,text,birdy,score_player,pipex1,pipex2
+    screen.blit(headline.render("Flappybird",True,BLACK),[width/2-250,hight/2-200])
+    screen.blit(defaultfont.render("Click on the Bird to start",True,BLACK),[width/2-250,hight/2+225])
+    screen.blit(defaultfont.render("or press H to view the highscores.",True,BLACK),[width/2-390,hight/2+275])
     screen.blit(settings,(width/2+400,hight/2-195))
-    screen.blit(info, (width/2-400,hight/2-195))
+    screen.blit(info,(width/2-400,hight/2-195))
+    text=""
     if skin==0:
         screen.blit(customizedbird,(width/2-200,hight/2-75))
     elif skin==1:
@@ -110,38 +113,45 @@ def prescreen():
         screen.blit(customizedbird2,(width/2-200,hight/2-75))
     elif skin==3:
         screen.blit(customizedbird3,(width/2-200,hight/2-75))
+    screen.blit(playbutton,(width/2-40,hight/2+30))
     if width/2+400<clickedx<width/2+475 and hight/2-195<clickedy<hight/2-120:
         status=3
     if width/2-400<clickedx<width/2-325 and hight/2-195<clickedy<hight/2-120:
         status=5
+    if width/2-200<clickedx<width/2+200 and hight/2-75<clickedy<hight/2+207:
+        status=0
+        birdy=hight/2
+        score_player=0
+        pipex1=width
+        pipex2=width+(width/2)
 
 def showhighscore():
     global status
-    pygame.draw.rect(screen, GREEN, [width/2-175, hight/2+175, 380, 100])
-    screen.blit(defaultfont.render("Back to lobby", True, BLACK), [width/2-150, hight/2+200])
-    file = open("names.txt")
+    pygame.draw.rect(screen, GREEN,[width/2-175,hight/2+175,380,100])
+    screen.blit(defaultfont.render("Back to lobby",True, BLACK),[width/2-150,hight/2+200])
+    file=open("names.txt")
     for line in file:
         namelist=line.split(",")
     file.close()
     for i in range(1,6):
-        names = defaultfont.render(str(i)+". " + namelist[-i]+":", True, BLACK)
-        screen.blit(names, [width/2-175,hight/2-200+(50*i)])
+        names=defaultfont.render(str(i)+". "+namelist[-i]+":",True,BLACK)
+        screen.blit(names,[width/2-175,hight/2-200+(50*i)])
     file = open("highscore.txt")
     for line in file:
         highscorelist=line.split(",")
     file.close()
     for i in range(1,6):
-        highscores = defaultfont.render(highscorelist[-i], True, BLACK)
-        screen.blit(highscores, [width/2+175,hight/2-200+(50*i)])
+        highscores = defaultfont.render(highscorelist[-i],True,BLACK)
+        screen.blit(highscores,[width/2+175,hight/2-200+(50*i)])
     if width/2-175<clickedx<width/2+205 and hight/2+175<clickedy<hight/2+275:
         status=4
 
 def endscreen():
     global status, newhighscore,enter
-    screen.blit(defaultfont.render("or press ESCAPE to exit.", True, BLACK), [width/2-325, hight/2+300])
-    screen.blit(defaultfont.render("Your score was: " + str(score_player), True,BLACK), [width/2-250, hight/2-200])
-    pygame.draw.rect(screen, GREEN, [width/2-200, hight/2+75, 380, 100])
-    screen.blit(defaultfont.render("Back to lobby", True, BLACK), [width/2-180, hight/2+100])
+    screen.blit(defaultfont.render("or press ESCAPE to exit.",True,BLACK),[width/2-325,hight/2+300])
+    screen.blit(defaultfont.render("Your score was: "+str(score_player),True,BLACK),[width/2-250,hight/2-200])
+    pygame.draw.rect(screen,GREEN,[width/2-200,hight/2+75,380,100])
+    screen.blit(defaultfont.render("Back to lobby",True,BLACK),[width/2-180,hight/2+100])
     if width/2-200<clickedx<width/2+185 and hight/2+75<clickedy<hight/2+175:
         status=4
         newhighscore=0
@@ -149,52 +159,57 @@ def endscreen():
 
 def infoscreen():
     global status
-    screen.blit(defaultfont.render("This game is about controlling a bird ", True, BLACK), [width/2-425, hight/2-275])
-    screen.blit(defaultfont.render("and trying to fly between the green pipes", True, BLACK), [width/2-470, hight/2-225])
-    screen.blit(defaultfont.render("without touching them.", True, BLACK), [width/2-270, hight/2-175])
-    screen.blit(defaultfont.render("If you want to jump just press SPACE.", True, BLACK), [width/2-425, hight/2-125])
-    screen.blit(defaultfont.render("You can also click on the +5 buttons ", True, BLACK), [width/2-415, hight/2-75])
-    screen.blit(defaultfont.render("to earn 5 additional points. But be careful, ", True, BLACK), [width/2-490, hight/2-25])
-    screen.blit(defaultfont.render("as the more points you collect,", True, BLACK), [width/2-380, hight/2+25])
-    screen.blit(defaultfont.render("the harder the game gets.", True, BLACK), [width/2-300, hight/2+75])
-    pygame.draw.rect(screen, GREEN, [width/2-175, hight/2+175, 380, 100])
-    screen.blit(defaultfont.render("Back to lobby", True, BLACK), [width/2-150, hight/2+200])
+    screen.blit(defaultfont.render("This game is about controlling a bird ",True,BLACK),[width/2-425,hight/2-275])
+    screen.blit(defaultfont.render("and trying to fly between the green pipes",True,BLACK),[width/2-470,hight/2-225])
+    screen.blit(defaultfont.render("without touching them.",True,BLACK),[width/2-270,hight/2-175])
+    screen.blit(defaultfont.render("If you want to jump just press SPACE.",True,BLACK),[width/2-425,hight/2-125])
+    screen.blit(defaultfont.render("You can also click on the +5 buttons ",True,BLACK),[width/2-415,hight/2-75])
+    screen.blit(defaultfont.render("to earn 5 additional points. But be careful,",True,BLACK),[width/2-490,hight/2-25])
+    screen.blit(defaultfont.render("as the more points you collect,",True,BLACK),[width/2-380,hight/2+25])
+    screen.blit(defaultfont.render("the harder the game gets.",True,BLACK),[width/2-300,hight/2+75])
+    pygame.draw.rect(screen,GREEN,[width/2-175,hight/2+175,380,100])
+    screen.blit(defaultfont.render("Back to lobby",True,BLACK),[width/2-150,hight/2+200])
     if width/2-175<clickedx<width/2+205 and hight/2+175<clickedy<hight/2+275:
         status=4
 
 def settingsscreen():
-    global fps,soundoff,clickedx1,soundeffoff,status,skin
-    screen.blit(defaultfont.render("Settings", True, BLACK),[width/2-100, hight/2-300])
-    screen.blit(defaultfont.render("FPS:", True, BLACK), [width/2-300, hight/2-200])
-    pygame.draw.rect(screen, GREEN, [width/2-150, hight/2-200, 100, 50])
-    pygame.draw.rect(screen, GREEN, [width/2, hight/2-200, 100, 50])
-    pygame.draw.rect(screen, GREEN, [width/2+150, hight/2-200, 100, 50])
-    screen.blit(defaultfont.render("60", True, RED), [width/2-130, hight/2-200])
-    screen.blit(defaultfont.render("144", True, RED), [width/2+5, hight/2-200])
-    screen.blit(defaultfont.render("240", True, RED), [width/2+155, hight/2-200])
-    screen.blit(defaultfont.render("Backgroundmusik:", True, BLACK), [width/2-300, hight/2-100])
-    screen.blit(sound, (width/2+200,hight/2-100))
-    screen.blit(defaultfont.render("Soundeffects:", True, BLACK), [width/2-300, hight/2])
-    screen.blit(sound, (width/2+200,hight/2))
-    screen.blit(defaultfont.render("Skin:", True, BLACK),[width/2-300, hight/2+100])
-    pygame.draw.rect(screen, GREEN, [width/2-107, hight/2+93, 65, 50])
-    pygame.draw.rect(screen, GREEN, [width/2-7, hight/2+93, 65, 50])
-    pygame.draw.rect(screen, GREEN, [width/2+93, hight/2+93, 65, 50])
-    pygame.draw.rect(screen, GREEN, [width/2+193, hight/2+93, 65, 50])
-    pygame.draw.rect(screen, GREEN, [width/2-175, hight/2+175, 380, 100])
-    screen.blit(defaultfont.render("Back to lobby", True, BLACK), [width/2-150, hight/2+200])
+    global fps,soundoff,clickedx1,soundeffoff,status,skin,difficulty
+    screen.blit(defaultfont.render("Settings",True,BLACK),[width/2-100,hight/2-300])
+    screen.blit(defaultfont.render("FPS:",True,BLACK),[width/2-300,hight/2-200])
+    pygame.draw.rect(screen,GREEN,[width/2-150,hight/2-200,100,50])
+    pygame.draw.rect(screen,GREEN,[width/2,hight/2-200,100,50])
+    pygame.draw.rect(screen,GREEN,[width/2+150, hight/2-200100,50])
+    screen.blit(defaultfont.render("60",True,RED),[width/2-130,hight/2-200])
+    screen.blit(defaultfont.render("144",True,RED),[width/2+5,hight/2-200])
+    screen.blit(defaultfont.render("240",True,RED),[width/2+155,hight/2-200])
+    screen.blit(defaultfont.render("Backgroundmusik:",True,BLACK),[width/2-300,hight/2-100])
+    screen.blit(sound,(width/2+200,hight/2-100))
+    screen.blit(defaultfont.render("Soundeffects:",True,BLACK),[width/2-300,hight/2])
+    screen.blit(sound,(width/2+200,hight/2))
+    screen.blit(defaultfont.render("Skin:",True,BLACK),[width/2-300,hight/2+100])
+    pygame.draw.rect(screen,GREEN,[width/2-107,hight/2+93,65,50])
+    pygame.draw.rect(screen,GREEN,[width/2-7,hight/2+93,65,50])
+    pygame.draw.rect(screen,GREEN,[width/2+93,hight/2+93,65,50])
+    pygame.draw.rect(screen,GREEN,[width/2+193,hight/2+93,65,50])
+    screen.blit(defaultfont.render("Difficulty:",True,BLACK),[width/2-300,hight/2+200])
+    pygame.draw.rect(screen,GREEN,[width/2-50,hight/2+198,143,50])
+    pygame.draw.rect(screen,GREEN,[width/2+108,hight/2+198,150,50])
+    screen.blit(defaultfont.render("EASY",True,BLACK),[width/2-48,hight/2+200])
+    screen.blit(defaultfont.render("HARD",True,BLACK),[width/2+110,hight/2+200])
+    pygame.draw.rect(screen,GREEN,[width/2-175, hight/2+275, 380, 100])
+    screen.blit(defaultfont.render("Back to lobby",True,BLACK),[width/2-150,hight/2+300])
     if width/2-150<clickedx<width/2-50 and hight/2-200<clickedy<hight/2-150 or fps<90:
         fps=60
-        pygame.draw.rect(screen, RED, [width/2-150, hight/2-200, 100, 50])
-        screen.blit(defaultfont.render("60", True, GREEN), [width/2-130, hight/2-200])
+        pygame.draw.rect(screen,RED,[width/2-150,hight/2-200,100,50])
+        screen.blit(defaultfont.render("60",True,GREEN),[width/2-130,hight/2-200])
     if width/2<clickedx<width/2+100 and hight/2-200<clickedy<hight/2-150 or 90<fps<180:
         fps=144
-        pygame.draw.rect(screen, RED, [width/2, hight/2-200, 100, 50])
-        screen.blit(defaultfont.render("144", True, GREEN), [width/2+5, hight/2-200])
+        pygame.draw.rect(screen,RED,[width/2,hight/2-200,100,50])
+        screen.blit(defaultfont.render("144",True,GREEN),[width/2+5,hight/2-200])
     if width/2+150<clickedx<width/2+250 and hight/2-200<clickedy<hight/2-150 or fps>180:
         fps=240
-        pygame.draw.rect(screen, RED, [width/2+150, hight/2-200, 100, 50])
-        screen.blit(defaultfont.render("240", True, GREEN), [width/2+155, hight/2-200])
+        pygame.draw.rect(screen,RED,[width/2+150,hight/2-200,100,50])
+        screen.blit(defaultfont.render("240",True,GREEN),[width/2+155,hight/2-200])
     if width/2+200<clickedx<width/2+250 and hight/2-100<clickedy<hight/2-50:
         if soundoff==0:
             soundoff=1
@@ -227,7 +242,15 @@ def settingsscreen():
     screen.blit(bird_image1,( width/2,hight/2+100))
     screen.blit(bird_image2,( width/2+100,hight/2+100))
     screen.blit(bird_image3,( width/2+200,hight/2+100))
-    if width/2-175<clickedx<width/2+205 and hight/2+175<clickedy<hight/2+275:
+    if width/2-50<clickedx<width/2+93 and hight/2+198<clickedy<hight/2+248 or difficulty==250:
+        difficulty=250
+        pygame.draw.rect(screen, RED, [width/2-50, hight/2+198, 143, 50])
+        screen.blit(defaultfont.render("EASY", True, GREEN), [width/2-48, hight/2+200])
+    if width/2+108<clickedx<width/2+258 and hight/2+198<clickedy<hight/2+248 or difficulty==200:
+        difficulty=200
+        pygame.draw.rect(screen, RED, [width/2+108, hight/2+198, 150, 50])
+        screen.blit(defaultfont.render("HARD", True, GREEN), [width/2+110, hight/2+200])
+    if width/2-175<clickedx<width/2+205 and hight/2+275<clickedy<hight/2+375:
         status=4
 
 def birdmovement():
@@ -243,11 +266,11 @@ def birdmovement():
         birdy=(hight-36.1)
 
 def pipemovement():
-    global pipex1,pipex2,pipe1reset,pipe2reset,pipey1,pipey2,pipeupdown
-    if score_player<=99:
+    global pipex1,pipex2,pipe1reset,pipe2reset,pipey1,pipey2,pipeupdown,difficulty
+    if score_player<=50:
         pipex1-=(6.25/fpsmultiplier)/xmultiplier
         pipex2-=(6.25/fpsmultiplier)/xmultiplier
-    elif score_player>99:
+    elif score_player>50:
         pipex1-=(7.5/fpsmultiplier)/xmultiplier
         pipex2-=(7.5/fpsmultiplier)/xmultiplier
     if pipex1<-50:
@@ -257,12 +280,12 @@ def pipemovement():
         pipex2=width
         pipe2reset=0
     if pipe1reset==0:
-        pipey1=random.randrange(50,hight-200-50)
+        pipey1=random.randrange(50,hight-difficulty-50)
         pipe1reset=1
     if pipe2reset==0:
-        pipey2=random.randrange(50,hight-200-50)
+        pipey2=random.randrange(50,hight-difficulty-50)
         pipe2reset=1
-    if score_player>=199:
+    if score_player>=100:
         if pipeupdown<=120*fpsmultiplier:
             pipey1+=0.025*fpsmultiplier
             pipey2-=0.025*fpsmultiplier
@@ -293,11 +316,11 @@ def plusfive():
         gotfive=0
         notfive=0
     else:
-        if score_player<=99:
+        if score_player<=50:
             xfive-=(6.25/fpsmultiplier)/xmultiplier
         else:    
             xfive-=(7.5/fpsmultiplier)/xmultiplier
-    if score_player>=199:
+    if score_player>=100:
         if fiveupdown<=60*fpsmultiplier:
             yfive+=0.05*fpsmultiplier
             fiveupdown+=1
@@ -317,8 +340,8 @@ def blititems():
         screen.blit(bird_image2,( 100,birdy))
     elif skin==3:
         screen.blit(bird_image3,( 100,birdy))
-    screen.blit(pipeb_image,( pipex1,pipey1+200))
-    screen.blit(pipeb_image,( pipex2,pipey2+200))
+    screen.blit(pipeb_image,( pipex1,pipey1+difficulty))
+    screen.blit(pipeb_image,( pipex2,pipey2+difficulty))
     screen.blit(pipet_image,( pipex1,-1000+pipey1))
     screen.blit(pipet_image,( pipex2,-1000+pipey2))
     screen.blit(five,(xfive,yfive))
@@ -328,9 +351,9 @@ def collisioncheck():
     bird.x = 100
     bird.y = birdy
     pipe1b.x =pipex1
-    pipe1b.y =pipey1+200
+    pipe1b.y =pipey1+difficulty
     pipe2b.x =pipex2
-    pipe2b.y =pipey2+200
+    pipe2b.y =pipey2+difficulty
     pipe1t.x =pipex1
     pipe1t.y =-1000+pipey1
     pipe2t.x =pipex2
@@ -405,12 +428,6 @@ while not done:
                 done = True
             elif event.key == pygame.K_h and (status==4):
                 status=2
-            elif event.key == pygame.K_RETURN and status==4:
-                status = 0
-                birdy=hight/2 
-                score_player=0
-                pipex1=width
-                pipex2=width+(width/2)
             elif event.key == pygame.K_SPACE and status==0 and clickedspace==0:
                 jumpduration = 0
                 clickedspace=1
